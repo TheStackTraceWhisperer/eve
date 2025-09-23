@@ -11,6 +11,7 @@ A demonstration of a multi-module Maven project using the Avaje Inject dependenc
 - **Java 21** with virtual threads for modern concurrency
 - **Method interception** framework (TimingInterceptor setup)
 - **Bill of Materials (BOM)** for version management
+- **Unified logging** via SLF4J with JUL-to-SLF4J bridge for consistent log formatting
 
 ## Project Structure
 

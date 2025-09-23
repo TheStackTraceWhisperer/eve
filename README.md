@@ -8,7 +8,7 @@ A demonstration of a multi-module Maven project using the Avaje Inject dependenc
 - **Avaje Inject** dependency injection framework
 - **Event-driven architecture** with @Observes pattern  
 - **Plugin architecture** for extensible components
-- **Java 17** with thread pool for concurrency
+- **Java 21** with virtual threads for modern concurrency
 - **Method interception** framework (TimingInterceptor setup)
 - **Bill of Materials (BOM)** for version management
 - **Unified logging** via SLF4J with JUL-to-SLF4J bridge for consistent log formatting
@@ -35,7 +35,7 @@ eve/
 ## Building and Running
 
 ### Prerequisites
-- Java 17+
+- Java 21+
 - Maven 3.6+
 
 ### Build
@@ -75,15 +75,13 @@ EVE Application completed successfully!
 1. **Dependency Injection**: Engine receives `List<Plugin>` and `Event<EngineStartedEvent>` via constructor injection
 2. **Event System**: EngineStartedEvent is fired and observed by plugins using `@Observes` annotation
 3. **Plugin Discovery**: Runtime plugin discovery ensures all modules are loaded before plugin enumeration
-4. **Thread Pool**: Plugin initialization uses `CompletableFuture` with common thread pool
+4. **Virtual Threads**: Plugin initialization uses `Executors.newVirtualThreadPerTaskExecutor()` 
 5. **Module Isolation**: Clean separation between API, core logic, plugins, distribution, and application layers
-6. **Unified Logging**: JUL-to-SLF4J bridge ensures all framework and application logging uses consistent SLF4J formatting
 
 ## Technical Implementation Notes
 
 - Uses Avaje Inject `@Component` instead of `@Singleton` for bean registration
 - Event observation requires `@Observes` on parameter, not method
 - BeanScope provides runtime access to registered beans
-- Thread pool executors provide concurrent plugin initialization
-- AOP/Method interception setup requires additional configuration (TimingInterceptor implemented and connected)
-- JUL-to-SLF4J bridge configured at startup to route java.util.logging calls through SLF4J
+- Virtual thread executors showcase Java 21 concurrency features
+- AOP/Method interception setup requires additional configuration (TimingInterceptor implemented but not yet connected)

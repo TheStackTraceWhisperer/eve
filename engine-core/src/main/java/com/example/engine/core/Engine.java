@@ -41,7 +41,7 @@ public class Engine {
     
     /**
      * Starts the engine, initializes plugins, and fires the engine started event.
-     * Uses thread pool for plugin initialization.
+     * Uses virtual threads for plugin initialization to showcase modern concurrency.
      */
     public void start() {
         // Get plugins at runtime to ensure all modules are loaded
@@ -50,14 +50,14 @@ public class Engine {
         
         long startTime = System.currentTimeMillis();
         
-        // Initialize plugins using thread pool executor
+        // Initialize plugins using virtual threads for modern concurrency
         List<CompletableFuture<Void>> pluginFutures = runtimePlugins.stream()
             .map(plugin -> CompletableFuture.runAsync(() -> {
                 log.info("Initializing plugin: {}", plugin.getName());
                 plugin.initialize();
                 log.info("Plugin initialized: {}", plugin.getName());
-            }))
-            .collect(java.util.stream.Collectors.toList());
+            }, Executors.newVirtualThreadPerTaskExecutor()))
+            .toList();
         
         // Wait for all plugins to initialize
         CompletableFuture.allOf(pluginFutures.toArray(new CompletableFuture[0])).join();

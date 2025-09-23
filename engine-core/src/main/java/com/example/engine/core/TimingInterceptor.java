@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Interceptor that times method execution for methods annotated with @Timed.
+ * Note: AOP configuration for @Timed annotation needs additional setup in Avaje Inject.
  */
 @Component
 public class TimingInterceptor implements MethodInterceptor {

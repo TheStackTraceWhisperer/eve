@@ -2,6 +2,7 @@ package com.example.plugin;
 
 import com.example.engine.api.EngineStartedEvent;
 import com.example.engine.api.Plugin;
+import com.example.engine.api.Timed;
 import io.avaje.inject.events.Observes;
 import io.avaje.inject.Component;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ public class ExamplePlugin implements Plugin {
     }
     
     @Override
+    @Timed
     public void initialize() {
         log.info("ExamplePlugin: Initializing plugin...");
         // Simulate some work
@@ -44,10 +46,11 @@ public class ExamplePlugin implements Plugin {
     }
     
     /**
-     * Additional method to demonstrate processing.
+     * Additional method with timing interceptor to demonstrate AOP.
      * 
      * @param event the engine started event
      */
+    @Timed
     private void processEngineStart(EngineStartedEvent event) {
         log.info("ExamplePlugin: Processing engine start event...");
         // Simulate some processing work

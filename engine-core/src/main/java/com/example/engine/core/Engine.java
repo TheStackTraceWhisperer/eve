@@ -4,6 +4,7 @@ import com.example.engine.api.EngineStartedEvent;
 import com.example.engine.api.Plugin;
 import io.avaje.inject.events.Event;
 import io.avaje.inject.Component;
+import io.avaje.inject.BeanScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,16 +22,21 @@ public class Engine {
     
     private final List<Plugin> plugins;
     private final Event<EngineStartedEvent> engineStartedEvent;
+    private final BeanScope beanScope;
     
     /**
      * Constructor with dependency injection.
      * 
-     * @param plugins list of all available plugins
+     * @param plugins list of all available plugins (may be empty if injected before plugin modules are processed)
      * @param engineStartedEvent event publisher for engine started events
+     * @param beanScope the bean scope for runtime plugin discovery
      */
-    public Engine(List<Plugin> plugins, Event<EngineStartedEvent> engineStartedEvent) {
+    public Engine(List<Plugin> plugins, Event<EngineStartedEvent> engineStartedEvent, BeanScope beanScope) {
         this.plugins = plugins;
         this.engineStartedEvent = engineStartedEvent;
+        this.beanScope = beanScope;
+        
+        log.info("Engine initialized with {} plugins in constructor", plugins.size());
     }
     
     /**
@@ -38,12 +44,14 @@ public class Engine {
      * Uses virtual threads for plugin initialization to showcase modern concurrency.
      */
     public void start() {
-        log.info("Starting engine with {} plugins", plugins.size());
+        // Get plugins at runtime to ensure all modules are loaded
+        List<Plugin> runtimePlugins = beanScope.list(Plugin.class);
+        log.info("Starting engine with {} plugins (runtime discovery)", runtimePlugins.size());
         
         long startTime = System.currentTimeMillis();
         
         // Initialize plugins using virtual threads for modern concurrency
-        List<CompletableFuture<Void>> pluginFutures = plugins.stream()
+        List<CompletableFuture<Void>> pluginFutures = runtimePlugins.stream()
             .map(plugin -> CompletableFuture.runAsync(() -> {
                 log.info("Initializing plugin: {}", plugin.getName());
                 plugin.initialize();

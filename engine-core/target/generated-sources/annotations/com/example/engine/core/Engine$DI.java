@@ -2,6 +2,7 @@ package com.example.engine.core;
 
 import com.example.engine.api.EngineStartedEvent;
 import com.example.engine.api.Plugin;
+import io.avaje.inject.BeanScope;
 import io.avaje.inject.events.Event;
 import io.avaje.inject.spi.Builder;
 import io.avaje.inject.spi.Generated;
@@ -23,7 +24,7 @@ public final class Engine$DI  {
    */
   public static void build(Builder builder) {
     if (builder.isAddBeanFor(Engine.class)) {
-      var bean = new Engine(builder.list(Plugin.class), builder.get(TYPE_EventEngineStartedEvent));
+      var bean = new Engine(builder.list(Plugin.class), builder.get(TYPE_EventEngineStartedEvent), builder.get(BeanScope.class,"!beanScope"));
       builder.register(bean);
     }
   }

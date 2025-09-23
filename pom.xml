@@ -15,9 +15,12 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+      
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      
         <avaje.version>10.1</avaje.version>
         <slf4j.version>2.0.13</slf4j.version>
+        <logback.version>1.4.14</logback.version>
         <lombok.version>1.18.30</lombok.version>
     </properties>
 
@@ -59,9 +62,9 @@
                 <version>${avaje.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-                <version>${slf4j.version}</version>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>

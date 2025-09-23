@@ -23,7 +23,7 @@ public class Main {
         // Install JUL-to-SLF4J bridge to route java.util.logging calls through SLF4J
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
-        
+
         System.out.println("Starting EVE Application...");
         
         // Create the bean scope
@@ -34,7 +34,5 @@ public class Main {
 
         // Call the main business logic
         engine.start();
-        
-        System.out.println("EVE Application completed successfully!");
     }
 }

@@ -47,11 +47,6 @@ public class ExamplePlugin implements Plugin {
     public void processEngineStart(EngineStartedEvent event) {
         log.info("ExamplePlugin: Processing engine start event...");
         // Simulate some processing work
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
         log.info("ExamplePlugin: Finished processing engine start event");
     }
 }

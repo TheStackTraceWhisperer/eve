@@ -1,0 +1,11 @@
+com/example/engine/core/CoreModule.class
+com/example/engine/core/CoreModule$1.class
+com/example/engine/core/TimingInterceptor.class
+com/example/engine/api/events/EngineStartedEvent$Publisher$DI$1.class
+com/example/engine/api/events/EngineStartedEvent$Publisher$DI.class
+com/example/engine/core/Engine.class
+com/example/engine/core/Engine$DI$1.class
+com/example/engine/api/events/EngineStartedEvent$Publisher.class
+com/example/engine/core/TimingInterceptor$DI.class
+com/example/engine/core/Engine$DI.class
+META-INF/services/io.avaje.inject.spi.InjectExtension

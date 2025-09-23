@@ -1,0 +1,4 @@
+com/example/plugin/PluginModule.class
+com/example/plugin/ExamplePlugin.class
+META-INF/services/io.avaje.inject.spi.InjectExtension
+com/example/plugin/ExamplePlugin$DI.class

@@ -5,8 +5,7 @@ import com.example.engine.api.Plugin;
 import io.avaje.inject.events.Event;
 import io.avaje.inject.Component;
 import io.avaje.inject.BeanScope;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -15,10 +14,9 @@ import java.util.concurrent.Executors;
 /**
  * Main engine class that manages plugins and fires events.
  */
+@Slf4j
 @Component
 public class Engine {
-    
-    private static final Logger log = LoggerFactory.getLogger(Engine.class);
     
     private final List<Plugin> plugins;
     private final Event<EngineStartedEvent> engineStartedEvent;

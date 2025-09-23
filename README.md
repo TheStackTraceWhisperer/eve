@@ -11,6 +11,7 @@ A demonstration of a multi-module Maven project using the Avaje Inject dependenc
 - **Java 21** with virtual threads for modern concurrency
 - **Method interception** framework (TimingInterceptor setup)
 - **Bill of Materials (BOM)** for version management
+- **Unified logging** via SLF4J with JUL-to-SLF4J bridge for consistent log formatting
 
 ## Project Structure
 
@@ -48,6 +49,17 @@ cd application
 mvn dependency:build-classpath -Dmdep.outputFile=classpath.txt
 java -cp "target/classes:$(cat classpath.txt)" com.example.app.Main
 ```
+
+## Continuous Integration
+
+This project includes a GitHub Actions workflow that automatically builds and tests the code:
+
+- **Triggers**: Runs on all pushes to `main`/`master` branches and on pull requests
+- **Build Command**: `mvn clean verify` 
+- **Java Version**: Java 21 (Temurin distribution)
+- **Caching**: Maven dependencies are cached to improve build performance
+
+The CI workflow is defined in `.github/workflows/ci.yml` and ensures code quality by running the full Maven lifecycle including compilation, testing, and verification on every change.
 
 ## Expected Output
 

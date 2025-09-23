@@ -66,7 +66,6 @@ public class Engine {
         EngineStartedEvent event = new EngineStartedEvent(startTime);
         log.info("Firing EngineStartedEvent");
         engineStartedEvent.fire(event);
-        
         log.info("Engine started successfully");
     }
 }

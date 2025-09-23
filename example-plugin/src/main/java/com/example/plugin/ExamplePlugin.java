@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class ExamplePlugin implements Plugin {
     
     private static final Logger log = LoggerFactory.getLogger(ExamplePlugin.class);
-    
+
     @Override
     public String getName() {
         return "ExamplePlugin";
@@ -27,11 +27,6 @@ public class ExamplePlugin implements Plugin {
     public void initialize() {
         log.info("ExamplePlugin: Initializing plugin...");
         // Simulate some work
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
         log.info("ExamplePlugin: Plugin initialization completed");
     }
     
@@ -51,7 +46,7 @@ public class ExamplePlugin implements Plugin {
      * @param event the engine started event
      */
     @Timed
-    private void processEngineStart(EngineStartedEvent event) {
+    public void processEngineStart(EngineStartedEvent event) {
         log.info("ExamplePlugin: Processing engine start event...");
         // Simulate some processing work
         try {

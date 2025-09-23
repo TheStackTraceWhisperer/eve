@@ -5,17 +5,15 @@ import com.example.engine.api.Plugin;
 import com.example.engine.api.Timed;
 import io.avaje.inject.events.Observes;
 import io.avaje.inject.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Example plugin implementation that demonstrates dependency injection,
  * event observation, and method interception.
  */
+@Slf4j
 @Component
 public class ExamplePlugin implements Plugin {
-    
-    private static final Logger log = LoggerFactory.getLogger(ExamplePlugin.class);
 
     @Override
     public String getName() {

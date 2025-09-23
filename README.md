@@ -50,6 +50,17 @@ mvn dependency:build-classpath -Dmdep.outputFile=classpath.txt
 java -cp "target/classes:$(cat classpath.txt)" com.example.app.Main
 ```
 
+## Continuous Integration
+
+This project includes a GitHub Actions workflow that automatically builds and tests the code:
+
+- **Triggers**: Runs on all pushes to `main`/`master` branches and on pull requests
+- **Build Command**: `mvn clean verify` 
+- **Java Version**: Java 21 (Temurin distribution)
+- **Caching**: Maven dependencies are cached to improve build performance
+
+The CI workflow is defined in `.github/workflows/ci.yml` and ensures code quality by running the full Maven lifecycle including compilation, testing, and verification on every change.
+
 ## Expected Output
 
 The application demonstrates all major features:

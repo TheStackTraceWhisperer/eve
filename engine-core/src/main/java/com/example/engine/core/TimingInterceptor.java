@@ -5,6 +5,7 @@ import io.avaje.inject.aop.AspectProvider;
 import io.avaje.inject.aop.MethodInterceptor;
 import io.avaje.inject.aop.Invocation;
 import io.avaje.inject.Component;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +15,9 @@ import java.lang.reflect.Method;
  * Interceptor that times method execution for methods annotated with @Timed.
  * Implements AspectProvider to provide timing interception for @Timed methods.
  */
+@Slf4j
 @Component
 public class TimingInterceptor implements AspectProvider<Timed> {
-    
-    private static final Logger log = LoggerFactory.getLogger(TimingInterceptor.class);
     
     @Override
     public MethodInterceptor interceptor(Method method, Timed timed) {

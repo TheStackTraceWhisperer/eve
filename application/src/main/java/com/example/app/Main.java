@@ -13,13 +13,13 @@ public class Main {
      * Traditional main method for compatibility with Maven exec plugin.
      */
     public static void main(String[] args) {
-        new Main().main();
+        new Main().run();
     }
     
     /**
-     * Instance main method - a Java 21 feature for simpler entry points.
+     * Instance main method - compatible with Java 17 for testing.
      */
-    void main() {
+    public void run() {
         // Install JUL-to-SLF4J bridge to route java.util.logging calls through SLF4J
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
@@ -34,5 +34,13 @@ public class Main {
 
         // Call the main business logic
         engine.start();
+    }
+    
+    /**
+     * Java 21 style instance main method - delegates to run().
+     * For backward compatibility, calling this method as well.
+     */
+    void main() {
+        run();
     }
 }

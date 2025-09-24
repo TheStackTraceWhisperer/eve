@@ -48,19 +48,14 @@ public class Engine {
         
         long startTime = System.currentTimeMillis();
         
-        // Initialize plugins using CompletableFuture for concurrent execution
-        // Note: Using common thread pool instead of virtual threads for Java 17 compatibility
+        // Initialize plugins using virtual threads for modern concurrency
         List<CompletableFuture<Void>> pluginFutures = runtimePlugins.stream()
             .map(plugin -> CompletableFuture.runAsync(() -> {
-                try {
-                    log.info("Initializing plugin: {}", plugin.getName());
-                    plugin.initialize();
-                    log.info("Plugin initialized: {}", plugin.getName());
-                } catch (Exception e) {
-                    log.error("Failed to initialize plugin: {}", plugin.getName(), e);
-                }
-            }))
-            .collect(java.util.stream.Collectors.toList());
+                log.info("Initializing plugin: {}", plugin.getName());
+                plugin.initialize();
+                log.info("Plugin initialized: {}", plugin.getName());
+            }, Executors.newVirtualThreadPerTaskExecutor()))
+            .toList();
         
         // Wait for all plugins to initialize
         CompletableFuture.allOf(pluginFutures.toArray(new CompletableFuture[0])).join();

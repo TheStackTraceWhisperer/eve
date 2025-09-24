@@ -52,13 +52,10 @@ class MainTest {
     void shouldHaveInstanceMainMethod() throws NoSuchMethodException {
         // when
         var instanceMainMethod = Main.class.getDeclaredMethod("main");
-        var runMethod = Main.class.getDeclaredMethod("run");
         
         // then
         assertThat(instanceMainMethod).isNotNull();
         assertThat(instanceMainMethod.getParameterCount()).isEqualTo(0);
-        assertThat(runMethod).isNotNull();
-        assertThat(runMethod.getParameterCount()).isEqualTo(0);
     }
     
     @Test
@@ -71,7 +68,7 @@ class MainTest {
         // Note: In a test environment, this might not work fully due to dependency injection
         // but we can at least verify the method exists and starts properly
         try {
-            main.run();
+            main.main();
         } catch (Exception e) {
             // Expected - dependency injection might not work in test environment
             // But we should see the initial print statement

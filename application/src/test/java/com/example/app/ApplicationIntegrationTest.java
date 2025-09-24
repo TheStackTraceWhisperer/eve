@@ -38,7 +38,7 @@ class ApplicationIntegrationTest {
         
         // when
         try {
-            main.run();
+            main.main();
         } catch (Exception e) {
             // In test environment, some DI components might not be available
             // but we can still verify partial startup behavior

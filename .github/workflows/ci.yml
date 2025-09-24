@@ -28,5 +28,40 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
         
-    - name: Run Maven clean verify
+    - name: Run Maven clean verify (tests + coverage)
       run: mvn clean verify
+      
+    - name: Upload test reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-reports
+        path: |
+          **/target/surefire-reports/
+          **/target/failsafe-reports/
+        retention-days: 30
+        
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: coverage-reports
+        path: |
+          **/target/site/jacoco/
+          **/target/*.exec
+        retention-days: 30
+        
+    - name: Generate Test Summary
+      uses: test-summary/action@v2
+      if: always()
+      with:
+        paths: |
+          **/target/surefire-reports/TEST-*.xml
+          **/target/failsafe-reports/TEST-*.xml
+        
+    - name: Coverage Comment (for PRs)
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "## Test Coverage Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        find . -name "jacoco.csv" -exec echo "### {}" \; -exec cat {} \; >> $GITHUB_STEP_SUMMARY || true

@@ -20,13 +20,12 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
+        cache: maven
         
-    - name: Cache Maven dependencies
-      uses: actions/cache@v4
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+    - name: Verify Java Version
+      run: |
+        java -version
+        mvn -version
         
     - name: Run Maven clean verify (tests + coverage)
       run: mvn clean verify

@@ -35,9 +35,14 @@
                 <version>3.12.1</version>
                 <configuration>
                     <release>21</release>
+                    <source>21</source>
+                    <target>21</target>
                     <compilerArgs>
                         <arg>--enable-preview</arg>
                     </compilerArgs>
+                    <fork>true</fork>
+                    <meminitial>128m</meminitial>
+                    <maxmem>512m</maxmem>
                 </configuration>
             </plugin>
             <plugin>

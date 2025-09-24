@@ -51,9 +51,13 @@ public class Engine {
         // Initialize plugins using virtual threads for modern concurrency
         List<CompletableFuture<Void>> pluginFutures = runtimePlugins.stream()
             .map(plugin -> CompletableFuture.runAsync(() -> {
-                log.info("Initializing plugin: {}", plugin.getName());
-                plugin.initialize();
-                log.info("Plugin initialized: {}", plugin.getName());
+                try {
+                    log.info("Initializing plugin: {}", plugin.getName());
+                    plugin.initialize();
+                    log.info("Plugin initialized: {}", plugin.getName());
+                } catch (Exception e) {
+                    log.error("Failed to initialize plugin: {}", plugin.getName(), e);
+                }
             }, Executors.newVirtualThreadPerTaskExecutor()))
             .toList();
         

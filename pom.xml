@@ -24,10 +24,10 @@
         <lombok.version>1.18.30</lombok.version>
         
         <!-- Testing versions -->
-        <junit.version>5.10.0</junit.version>
-        <mockito.version>5.5.0</mockito.version>
-        <assertj.version>3.24.2</assertj.version>
-        <aspectj.version>1.9.20</aspectj.version>
+        <junit.version>5.10.3</junit.version>
+        <mockito.version>5.12.0</mockito.version>
+        <assertj.version>3.25.3</assertj.version>
+        <aspectj.version>1.9.22</aspectj.version>
         
         <!-- Maven plugin versions -->
         <maven.surefire.version>3.2.2</maven.surefire.version>
@@ -52,6 +52,33 @@
                     <version>${avaje.version}</version>
                 </plugin>
                 
+                <!-- Maven Enforcer Plugin to ensure Java 21 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.4.1</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-java</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireJavaVersion>
+                                        <version>[21,)</version>
+                                        <message>Java 21 or higher is required for this project.</message>
+                                    </requireJavaVersion>
+                                    <requireMavenVersion>
+                                        <version>[3.6.3,)</version>
+                                        <message>Maven 3.6.3 or higher is required.</message>
+                                    </requireMavenVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                
                 <!-- Maven Compiler Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -59,9 +86,14 @@
                     <version>3.12.1</version>
                     <configuration>
                         <release>21</release>
+                        <source>21</source>
+                        <target>21</target>
                         <compilerArgs>
                             <arg>--enable-preview</arg>
                         </compilerArgs>
+                        <fork>true</fork>
+                        <meminitial>128m</meminitial>
+                        <maxmem>512m</maxmem>
                     </configuration>
                 </plugin>
                 
@@ -80,6 +112,13 @@
                         <systemPropertyVariables>
                             <java.util.logging.manager>org.slf4j.bridge.SLF4JBridgeHandler</java.util.logging.manager>
                         </systemPropertyVariables>
+                        <argLine>
+                            --add-opens java.base/java.lang=ALL-UNNAMED
+                            --add-opens java.base/java.util=ALL-UNNAMED
+                            --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                            --add-opens java.base/java.text=ALL-UNNAMED
+                            --add-opens java.desktop/java.awt.font=ALL-UNNAMED
+                        </argLine>
                     </configuration>
                 </plugin>
                 
@@ -97,6 +136,13 @@
                         <systemPropertyVariables>
                             <java.util.logging.manager>org.slf4j.bridge.SLF4JBridgeHandler</java.util.logging.manager>
                         </systemPropertyVariables>
+                        <argLine>
+                            --add-opens java.base/java.lang=ALL-UNNAMED
+                            --add-opens java.base/java.util=ALL-UNNAMED
+                            --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                            --add-opens java.base/java.text=ALL-UNNAMED
+                            --add-opens java.desktop/java.awt.font=ALL-UNNAMED
+                        </argLine>
                     </configuration>
                     <executions>
                         <execution>

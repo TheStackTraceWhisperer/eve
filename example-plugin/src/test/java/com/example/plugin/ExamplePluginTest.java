@@ -45,7 +45,7 @@ class ExamplePluginTest {
     @DisplayName("Should handle engine start event")
     void shouldHandleEngineStartEvent() {
         // given
-        long startTime = System.currentTimeMillis();
+        long startTime = 1234567890L; // Use fixed timestamp for testing
         EngineStartedEvent event = new EngineStartedEvent(startTime);
         
         // when & then
@@ -56,7 +56,7 @@ class ExamplePluginTest {
     @DisplayName("Should process engine start event")
     void shouldProcessEngineStartEvent() {
         // given
-        long startTime = System.currentTimeMillis();
+        long startTime = 1234567890L; // Use fixed timestamp for testing
         EngineStartedEvent event = new EngineStartedEvent(startTime);
         
         // when & then

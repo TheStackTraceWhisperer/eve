@@ -2,33 +2,16 @@ package com.example.app;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * Unit tests for the Main class.
+ * These tests focus on behavior and structure rather than implementation details.
  */
 @DisplayName("Main Class Tests")
 class MainTest {
-
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-
-    @BeforeEach
-    void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
-
-    @AfterEach
-    void restoreStreams() {
-        System.setOut(originalOut);
-    }
 
     @Test
     @DisplayName("Should have static main method that calls instance main")
@@ -59,27 +42,6 @@ class MainTest {
     }
     
     @Test
-    @DisplayName("Instance main method should print startup message")
-    void instanceMainMethodShouldPrintStartupMessage() {
-        // given
-        Main main = new Main();
-        
-        // when
-        // Note: In a test environment, this might not work fully due to dependency injection
-        // but we can at least verify the method exists and starts properly
-        try {
-            main.main();
-        } catch (Exception e) {
-            // Expected - dependency injection might not work in test environment
-            // But we should see the initial print statement
-        }
-        
-        // then
-        String output = outContent.toString();
-        assertThat(output).contains("Starting EVE Application...");
-    }
-    
-    @Test
     @DisplayName("Should be instantiable")
     void shouldBeInstantiable() {
         // when & then
@@ -94,5 +56,16 @@ class MainTest {
         
         // then
         assertThat(packageName).isEqualTo("com.example.app");
+    }
+    
+    @Test
+    @DisplayName("Main class should have SLF4J logger field")
+    void mainClassShouldHaveSlf4jLoggerField() {
+        // when & then - verify that the class uses proper logging instead of System.out
+        assertDoesNotThrow(() -> {
+            var loggerField = Main.class.getDeclaredField("log");
+            assertThat(loggerField).isNotNull();
+            assertThat(loggerField.getType().getName()).isEqualTo("org.slf4j.Logger");
+        });
     }
 }

@@ -14,7 +14,7 @@ class EngineStartedEventTest {
     @DisplayName("Should create event with start time")
     void shouldCreateEventWithStartTime() {
         // given
-        long startTime = System.currentTimeMillis();
+        long startTime = 1234567890L; // Use a fixed timestamp for testing
         
         // when
         EngineStartedEvent event = new EngineStartedEvent(startTime);

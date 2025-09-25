@@ -20,13 +20,26 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-        
-    - name: Cache Maven dependencies
-      uses: actions/cache@v4
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+        cache: maven
         
     - name: Run Maven clean verify
       run: mvn clean verify
+      
+    - name: Upload test reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-reports
+        path: |
+          **/target/surefire-reports/
+          **/target/failsafe-reports/
+        retention-days: 30
+        
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: coverage-reports
+        path: |
+          **/target/site/jacoco/
+        retention-days: 30

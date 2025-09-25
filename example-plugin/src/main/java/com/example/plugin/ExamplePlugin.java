@@ -1,10 +1,10 @@
 package com.example.plugin;
 
-import com.example.engine.api.EngineStartedEvent;
+import com.example.engine.api.events.EngineStartedEvent;
 import com.example.engine.api.Plugin;
 import com.example.engine.api.Timed;
-import io.avaje.inject.events.Observes;
 import io.avaje.inject.Component;
+import io.avaje.inject.events.Observes;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -15,38 +15,38 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ExamplePlugin implements Plugin {
 
-    @Override
-    public String getName() {
-        return "ExamplePlugin";
-    }
-    
-    @Override
-    @Timed
-    public void initialize() {
-        log.info("ExamplePlugin: Initializing plugin...");
-        // Simulate some work
-        log.info("ExamplePlugin: Plugin initialization completed");
-    }
-    
-    /**
-     * Event observer method that listens to EngineStartedEvent.
-     * 
-     * @param event the engine started event
-     */
-    public void onEngineStart(@Observes EngineStartedEvent event) {
-        log.info("ExamplePlugin: Received EngineStartedEvent at timestamp: {}", event.startTime());
-        processEngineStart(event);
-    }
-    
-    /**
-     * Additional method with timing interceptor to demonstrate AOP.
-     * 
-     * @param event the engine started event
-     */
-    @Timed
-    public void processEngineStart(EngineStartedEvent event) {
-        log.info("ExamplePlugin: Processing engine start event...");
-        // Simulate some processing work
-        log.info("ExamplePlugin: Finished processing engine start event");
-    }
+  @Override
+  public String getName() {
+    return "ExamplePlugin";
+  }
+
+  @Override
+  @Timed
+  public void initialize() {
+    //log.info("Initializing plugin...");
+    // Simulate some work
+    //log.info("Plugin initialization completed");
+  }
+
+  /**
+   * Event observer method that listens to EngineStartedEvent.
+   *
+   * @param event the engine started event
+   */
+  public void onEngineStart(@Observes EngineStartedEvent event) {
+    //log.info("Received EngineStartedEvent at timestamp: {}", event.startTime());
+    processEngineStart(event);
+  }
+
+  /**
+   * Additional method with timing interceptor to demonstrate AOP.
+   *
+   * @param event the engine started event
+   */
+  @Timed
+  public void processEngineStart(EngineStartedEvent event) {
+    //log.info("Processing engine start event...");
+    // Simulate some processing work
+    //log.info("Finished processing engine start event");
+  }
 }

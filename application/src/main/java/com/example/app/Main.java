@@ -3,15 +3,11 @@ package com.example.app;
 import com.example.engine.core.Engine;
 import io.avaje.inject.BeanScope;
 import org.slf4j.bridge.SLF4JBridgeHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Main entry point for the application using Java 21's instance main method.
  */
 public class Main {
-    
-    private static final Logger log = LoggerFactory.getLogger(Main.class);
     
     /**
      * Traditional main method for compatibility with Maven exec plugin.
@@ -28,7 +24,7 @@ public class Main {
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();
 
-        log.info("Starting EVE Application...");
+        System.out.println("Starting EVE Application...");
         
         // Create the bean scope
         var beanScope = BeanScope.builder().build();
@@ -38,7 +34,5 @@ public class Main {
 
         // Call the main business logic
         engine.start();
-        
-        log.info("EVE Application completed successfully!");
     }
 }

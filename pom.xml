@@ -34,6 +34,7 @@
   <modules>
     <module>engine-api</module>
     <module>engine-core</module>
+    <module>plugin-parent</module>
     <module>example-plugin</module>
     <module>engine-dist</module>
     <module>application</module>
@@ -92,6 +93,18 @@
           <version>3.12.1</version>
           <configuration>
             <release>21</release>
+            <annotationProcessorPaths>
+              <path>
+                <groupId>io.avaje</groupId>
+                <artifactId>avaje-inject-generator</artifactId>
+                <version>${avaje.version}</version>
+              </path>
+              <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+              </path>
+            </annotationProcessorPaths>
           </configuration>
         </plugin>
 
@@ -100,6 +113,9 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven.surefire.version}</version>
+          <configuration>
+            <argLine>-XX:+EnableDynamicAgentLoading -Xshare:off</argLine>
+          </configuration>
         </plugin>
 
         <!-- Maven Failsafe Plugin for integration tests -->
@@ -107,6 +123,9 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
           <version>${maven.failsafe.version}</version>
+          <configuration>
+            <argLine>-XX:+EnableDynamicAgentLoading -Xshare:off</argLine>
+          </configuration>
           <executions>
             <execution>
               <goals>
@@ -146,6 +165,12 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
       </plugin>
+      <!-- Activate Surefire with managed version -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      <!-- Failsafe activation removed from aggregator to avoid failing when no ITs exist -->
     </plugins>
   </build>
 

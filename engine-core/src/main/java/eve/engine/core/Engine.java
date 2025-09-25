@@ -55,6 +55,8 @@ public class Engine {
     runtimePlugins.forEach(Plugin::start);
 
     engineStartedEvent.fire(new EngineStartedEvent(startTime));
+
+    log.info("started");
   }
 
   /**
@@ -86,5 +88,6 @@ public class Engine {
     });
 
     executor.shutdown();
+    log.info("stopped");
   }
 }

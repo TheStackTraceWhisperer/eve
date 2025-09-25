@@ -1,8 +1,8 @@
-package com.example.plugin;
+package eve.plugin;
 
-import com.example.engine.api.events.EngineStartedEvent;
-import com.example.engine.api.Plugin;
-import com.example.engine.api.Timed;
+import eve.engine.api.Plugin;
+import eve.engine.api.Timed;
+import eve.engine.api.events.EngineStartedEvent;
 import io.avaje.inject.Component;
 import io.avaje.inject.events.Observes;
 import lombok.extern.slf4j.Slf4j;

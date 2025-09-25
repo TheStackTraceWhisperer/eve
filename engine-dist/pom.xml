@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.example</groupId>
+    <groupId>eve</groupId>
     <artifactId>eve</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
@@ -16,16 +16,19 @@
   <description>Bundle aggregator for engine components</description>
 
   <dependencies>
+
     <dependency>
-      <groupId>com.example</groupId>
+      <groupId>eve</groupId>
       <artifactId>engine-core</artifactId>
       <version>${project.version}</version>
     </dependency>
+
     <dependency>
-      <groupId>com.example</groupId>
+      <groupId>eve</groupId>
       <artifactId>example-plugin</artifactId>
       <version>${project.version}</version>
     </dependency>
+
   </dependencies>
 
 </project>

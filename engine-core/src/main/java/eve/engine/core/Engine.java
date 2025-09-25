@@ -1,15 +1,17 @@
-package com.example.engine.core;
+package eve.engine.core;
 
-import com.example.engine.api.events.EngineStartedEvent;
-import com.example.engine.api.Plugin;
-import io.avaje.inject.events.Event;
-import io.avaje.inject.Component;
+import eve.engine.api.Plugin;
+import eve.engine.api.events.EngineStartedEvent;
 import io.avaje.inject.BeanScope;
+import io.avaje.inject.Component;
+import io.avaje.inject.PreDestroy;
+import io.avaje.inject.events.Event;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
@@ -22,12 +24,13 @@ public class Engine {
   private final Event<EngineStartedEvent> engineStartedEvent;
   private final BeanScope beanScope;
   private List<Plugin> runtimePlugins;
+  private final ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
 
   /**
    * Constructor with dependency injection.
    *
    * @param engineStartedEvent event publisher for engine started events
-   * @param beanScope the bean scope for runtime plugin discovery
+   * @param beanScope          the bean scope for runtime plugin discovery
    */
   public Engine(Event<EngineStartedEvent> engineStartedEvent, BeanScope beanScope) {
     this.engineStartedEvent = engineStartedEvent;
@@ -44,7 +47,7 @@ public class Engine {
     List<CompletableFuture<Void>> pluginFutures = runtimePlugins.stream()
       .map(plugin -> CompletableFuture.runAsync(
         plugin::initialize,
-        Executors.newVirtualThreadPerTaskExecutor()
+        executor
       ))
       .toList();
     CompletableFuture.allOf(pluginFutures.toArray(new CompletableFuture[0])).join();
@@ -52,13 +55,12 @@ public class Engine {
     runtimePlugins.forEach(Plugin::start);
 
     engineStartedEvent.fire(new EngineStartedEvent(startTime));
-
-    log.info("started successfully");
   }
 
   /**
    * Stops the engine, gracefully stopping and destroying all plugins.
    */
+  @PreDestroy
   public void stop() {
     if (runtimePlugins == null) {
       return;
@@ -82,5 +84,7 @@ public class Engine {
         // Silently ignore exceptions during destroy
       }
     });
+
+    executor.shutdown();
   }
 }

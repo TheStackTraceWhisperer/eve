@@ -1,6 +1,6 @@
-package com.example.app;
+package eve.app;
 
-import com.example.engine.core.Engine;
+import eve.engine.core.Engine;
 import io.avaje.inject.BeanScope;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
@@ -24,13 +24,13 @@ public class Main {
     SLF4JBridgeHandler.removeHandlersForRootLogger();
     SLF4JBridgeHandler.install();
 
-    // Create the bean scope
-    var beanScope = BeanScope.builder().build();
+    // Create the bean scope and engine in a try-with-resources block
+    try (var beanScope = BeanScope.builder().build()) {
+      // Get the engine instance from the scope
+      Engine engine = beanScope.get(Engine.class);
 
-    // Get the engine instance from the scope
-    Engine engine = beanScope.get(Engine.class);
-
-    // Call the main business logic
-    engine.start();
+      // Call the main business logic
+      engine.start();
+    }
   }
 }

@@ -1,4 +1,4 @@
-package com.example.engine.api;
+package eve.engine.api;
 
 /**
  * Public interface that all plugins must implement.

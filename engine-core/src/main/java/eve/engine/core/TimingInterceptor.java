@@ -1,6 +1,6 @@
-package com.example.engine.core;
+package eve.engine.core;
 
-import com.example.engine.api.Timed;
+import eve.engine.api.Timed;
 import io.avaje.inject.Component;
 import io.avaje.inject.aop.AspectProvider;
 import io.avaje.inject.aop.Invocation;

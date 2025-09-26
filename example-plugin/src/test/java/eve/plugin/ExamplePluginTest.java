@@ -2,11 +2,14 @@ package eve.plugin;
 
 import org.junit.jupiter.api.Test;
 
-public class ExamplePluginTest {
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
+class ExamplePluginTest {
 
   @Test
-  void test() {
-
+  void testInitialize() {
+    ExamplePlugin plugin = new ExamplePlugin();
+    assertDoesNotThrow(plugin::initialize);
   }
 
 }

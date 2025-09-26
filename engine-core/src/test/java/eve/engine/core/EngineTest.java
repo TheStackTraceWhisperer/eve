@@ -1,7 +1,6 @@
 package eve.engine.core;
 
 import eve.engine.api.Plugin;
-import io.avaje.inject.spi.AvajeModule;
 import io.avaje.inject.test.TestBeanScope;
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +23,11 @@ class EngineTest {
 
   @Test
   void test() {
-    try(
+    try (
       var beanScope = TestBeanScope.builder()
-      .forTesting()
-      .mock(TestPlugin.class)
-      .build()
+        .forTesting()
+        .mock(TestPlugin.class)
+        .build()
     ) {
       var engine = beanScope.get(Engine.class);
 

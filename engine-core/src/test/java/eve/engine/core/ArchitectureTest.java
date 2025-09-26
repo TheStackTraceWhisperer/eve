@@ -12,7 +12,7 @@ public class ArchitectureTest {
 
   @ArchTest
   public static final ArchRule api_should_not_depend_on_core = noClasses()
-      .that().resideInAPackage("eve.engine.api..")
-      .should().dependOnClassesThat().resideInAPackage("eve.engine.core..");
+    .that().resideInAPackage("eve.engine.api..")
+    .should().dependOnClassesThat().resideInAPackage("eve.engine.core..");
 
 }

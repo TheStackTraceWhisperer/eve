@@ -13,7 +13,7 @@
   <artifactId>plugin-parent</artifactId>
   <packaging>pom</packaging>
   <name>Plugin Parent</name>
-  <description>Parent POM for all EVE plugins</description>
+  <description>Parent POM for all Eve plugins</description>
 
   <dependencyManagement>
     <dependencies>

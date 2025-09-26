@@ -11,7 +11,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>EVE Multi-Module Project</name>
+  <name>Eve Multi-Module Project</name>
   <description>A multi-module Maven project demonstrating Avaje Inject dependency injection</description>
 
   <properties>

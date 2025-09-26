@@ -14,10 +14,6 @@
   <name>Application</name>
   <description>Final executable entry point</description>
 
-  <properties>
-    <junit.version>5.10.0</junit.version>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>eve</groupId>
@@ -34,13 +30,11 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
